@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище RemontKOModelContainer" CdmEntityContainer="RemontKOEntities">
+    <EntitySetMapping Name="Klient">
+      <EntityTypeMapping TypeName="RemontKOModel.Klient">
+        <MappingFragment StoreEntitySet="Klient">
+          <ScalarProperty Name="klient_id" ColumnName="klient_id" />
+          <ScalarProperty Name="familia" ColumnName="familia" />
+          <ScalarProperty Name="imya" ColumnName="imya" />
+          <ScalarProperty Name="otchestvo" ColumnName="otchestvo" />
+          <ScalarProperty Name="polsovatel_id" ColumnName="polsovatel_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Klient_Servic">
+      <EntityTypeMapping TypeName="RemontKOModel.Klient_Servic">
+        <MappingFragment StoreEntitySet="Klient_Servic">
+          <ScalarProperty Name="klient_servic_id" ColumnName="klient_servic_id" />
+          <ScalarProperty Name="klient_id" ColumnName="klient_id" />
+          <ScalarProperty Name="servic_id" ColumnName="servic_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Polsovatel">
+      <EntityTypeMapping TypeName="RemontKOModel.Polsovatel">
+        <MappingFragment StoreEntitySet="Polsovatel">
+          <ScalarProperty Name="polsovatel_id" ColumnName="polsovatel_id" />
+          <ScalarProperty Name="familia" ColumnName="familia" />
+          <ScalarProperty Name="imya" ColumnName="imya" />
+          <ScalarProperty Name="otcshestvo" ColumnName="otcshestvo" />
+          <ScalarProperty Name="adres" ColumnName="adres" />
+          <ScalarProperty Name="telefon" ColumnName="telefon" />
+          <ScalarProperty Name="rol_id" ColumnName="rol_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rol">
+      <EntityTypeMapping TypeName="RemontKOModel.Rol">
+        <MappingFragment StoreEntitySet="Rol">
+          <ScalarProperty Name="rol_id" ColumnName="rol_id" />
+          <ScalarProperty Name="imya" ColumnName="imya" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Servic">
+      <EntityTypeMapping TypeName="RemontKOModel.Servic">
+        <MappingFragment StoreEntitySet="Servic">
+          <ScalarProperty Name="servic_id" ColumnName="servic_id" />
+          <ScalarProperty Name="imya" ColumnName="imya" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="tcena" ColumnName="tcena" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sotrudnik">
+      <EntityTypeMapping TypeName="RemontKOModel.Sotrudnik">
+        <MappingFragment StoreEntitySet="Sotrudnik">
+          <ScalarProperty Name="sotrudnik_id" ColumnName="sotrudnik_id" />
+          <ScalarProperty Name="familia" ColumnName="familia" />
+          <ScalarProperty Name="imya" ColumnName="imya" />
+          <ScalarProperty Name="otchestvo" ColumnName="otchestvo" />
+          <ScalarProperty Name="zarplata" ColumnName="zarplata" />
+          <ScalarProperty Name="polsovatel_id" ColumnName="polsovatel_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

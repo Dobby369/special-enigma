@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище RemontKOModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Klient">
+    <Key>
+      <PropertyRef Name="klient_id" />
+    </Key>
+    <Property Name="klient_id" Type="int" Nullable="false" />
+    <Property Name="familia" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="imya" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="otchestvo" Type="nvarchar" MaxLength="50" />
+    <Property Name="polsovatel_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Klient_Servic">
+    <Key>
+      <PropertyRef Name="klient_servic_id" />
+    </Key>
+    <Property Name="klient_servic_id" Type="int" Nullable="false" />
+    <Property Name="klient_id" Type="int" Nullable="false" />
+    <Property Name="servic_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Polsovatel">
+    <Key>
+      <PropertyRef Name="polsovatel_id" />
+    </Key>
+    <Property Name="polsovatel_id" Type="int" Nullable="false" />
+    <Property Name="familia" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="imya" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="otcshestvo" Type="nvarchar" MaxLength="50" />
+    <Property Name="adres" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="telefon" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="rol_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Rol">
+    <Key>
+      <PropertyRef Name="rol_id" />
+    </Key>
+    <Property Name="rol_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="imya" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Servic">
+    <Key>
+      <PropertyRef Name="servic_id" />
+    </Key>
+    <Property Name="servic_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="imya" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="tcena" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sotrudnik">
+    <Key>
+      <PropertyRef Name="sotrudnik_id" />
+    </Key>
+    <Property Name="sotrudnik_id" Type="int" Nullable="false" />
+    <Property Name="familia" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="imya" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="otchestvo" Type="nvarchar" MaxLength="50" />
+    <Property Name="zarplata" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="polsovatel_id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_klient_polsovatel">
+    <End Role="Polsovatel" Type="Self.Polsovatel" Multiplicity="1" />
+    <End Role="Klient" Type="Self.Klient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Polsovatel">
+        <PropertyRef Name="polsovatel_id" />
+      </Principal>
+      <Dependent Role="Klient">
+        <PropertyRef Name="polsovatel_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Klient_Servic_klient">
+    <End Role="Klient" Type="Self.Klient" Multiplicity="1" />
+    <End Role="Klient_Servic" Type="Self.Klient_Servic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Klient">
+        <PropertyRef Name="klient_id" />
+      </Principal>
+      <Dependent Role="Klient_Servic">
+        <PropertyRef Name="klient_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Klient_Servic_Servic">
+    <End Role="Servic" Type="Self.Servic" Multiplicity="1" />
+    <End Role="Klient_Servic" Type="Self.Klient_Servic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Servic">
+        <PropertyRef Name="servic_id" />
+      </Principal>
+      <Dependent Role="Klient_Servic">
+        <PropertyRef Name="servic_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sotrudnik_polsovatel">
+    <End Role="Polsovatel" Type="Self.Polsovatel" Multiplicity="1" />
+    <End Role="Sotrudnik" Type="Self.Sotrudnik" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Polsovatel">
+        <PropertyRef Name="polsovatel_id" />
+      </Principal>
+      <Dependent Role="Sotrudnik">
+        <PropertyRef Name="polsovatel_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище RemontKOModelContainer">
+    <EntitySet Name="Klient" EntityType="Self.Klient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Klient_Servic" EntityType="Self.Klient_Servic" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Polsovatel" EntityType="Self.Polsovatel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Servic" EntityType="Self.Servic" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sotrudnik" EntityType="Self.Sotrudnik" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_klient_polsovatel" Association="Self.FK_klient_polsovatel">
+      <End Role="Polsovatel" EntitySet="Polsovatel" />
+      <End Role="Klient" EntitySet="Klient" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Klient_Servic_klient" Association="Self.FK_Klient_Servic_klient">
+      <End Role="Klient" EntitySet="Klient" />
+      <End Role="Klient_Servic" EntitySet="Klient_Servic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Klient_Servic_Servic" Association="Self.FK_Klient_Servic_Servic">
+      <End Role="Servic" EntitySet="Servic" />
+      <End Role="Klient_Servic" EntitySet="Klient_Servic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sotrudnik_polsovatel" Association="Self.FK_Sotrudnik_polsovatel">
+      <End Role="Polsovatel" EntitySet="Polsovatel" />
+      <End Role="Sotrudnik" EntitySet="Sotrudnik" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

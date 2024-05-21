@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище RemontKOModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Klient">
+          <Key>
+            <PropertyRef Name="klient_id" />
+          </Key>
+          <Property Name="klient_id" Type="int" Nullable="false" />
+          <Property Name="familia" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="imya" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="otchestvo" Type="nvarchar" MaxLength="50" />
+          <Property Name="polsovatel_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Klient_Servic">
+          <Key>
+            <PropertyRef Name="klient_servic_id" />
+          </Key>
+          <Property Name="klient_servic_id" Type="int" Nullable="false" />
+          <Property Name="klient_id" Type="int" Nullable="false" />
+          <Property Name="servic_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Polsovatel">
+          <Key>
+            <PropertyRef Name="polsovatel_id" />
+          </Key>
+          <Property Name="polsovatel_id" Type="int" Nullable="false" />
+          <Property Name="familia" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="imya" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="otcshestvo" Type="nvarchar" MaxLength="50" />
+          <Property Name="adres" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="telefon" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="rol_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="rol_id" />
+          </Key>
+          <Property Name="rol_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imya" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Servic">
+          <Key>
+            <PropertyRef Name="servic_id" />
+          </Key>
+          <Property Name="servic_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imya" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="tcena" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sotrudnik">
+          <Key>
+            <PropertyRef Name="sotrudnik_id" />
+          </Key>
+          <Property Name="sotrudnik_id" Type="int" Nullable="false" />
+          <Property Name="familia" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="imya" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="otchestvo" Type="nvarchar" MaxLength="50" />
+          <Property Name="zarplata" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="polsovatel_id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_klient_polsovatel">
+          <End Role="Polsovatel" Type="Self.Polsovatel" Multiplicity="1" />
+          <End Role="Klient" Type="Self.Klient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Polsovatel">
+              <PropertyRef Name="polsovatel_id" />
+            </Principal>
+            <Dependent Role="Klient">
+              <PropertyRef Name="polsovatel_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Klient_Servic_klient">
+          <End Role="Klient" Type="Self.Klient" Multiplicity="1" />
+          <End Role="Klient_Servic" Type="Self.Klient_Servic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klient">
+              <PropertyRef Name="klient_id" />
+            </Principal>
+            <Dependent Role="Klient_Servic">
+              <PropertyRef Name="klient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Klient_Servic_Servic">
+          <End Role="Servic" Type="Self.Servic" Multiplicity="1" />
+          <End Role="Klient_Servic" Type="Self.Klient_Servic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servic">
+              <PropertyRef Name="servic_id" />
+            </Principal>
+            <Dependent Role="Klient_Servic">
+              <PropertyRef Name="servic_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sotrudnik_polsovatel">
+          <End Role="Polsovatel" Type="Self.Polsovatel" Multiplicity="1" />
+          <End Role="Sotrudnik" Type="Self.Sotrudnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Polsovatel">
+              <PropertyRef Name="polsovatel_id" />
+            </Principal>
+            <Dependent Role="Sotrudnik">
+              <PropertyRef Name="polsovatel_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище RemontKOModelContainer">
+          <EntitySet Name="Klient" EntityType="Self.Klient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Klient_Servic" EntityType="Self.Klient_Servic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Polsovatel" EntityType="Self.Polsovatel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servic" EntityType="Self.Servic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sotrudnik" EntityType="Self.Sotrudnik" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_klient_polsovatel" Association="Self.FK_klient_polsovatel">
+            <End Role="Polsovatel" EntitySet="Polsovatel" />
+            <End Role="Klient" EntitySet="Klient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Klient_Servic_klient" Association="Self.FK_Klient_Servic_klient">
+            <End Role="Klient" EntitySet="Klient" />
+            <End Role="Klient_Servic" EntitySet="Klient_Servic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Klient_Servic_Servic" Association="Self.FK_Klient_Servic_Servic">
+            <End Role="Servic" EntitySet="Servic" />
+            <End Role="Klient_Servic" EntitySet="Klient_Servic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sotrudnik_polsovatel" Association="Self.FK_Sotrudnik_polsovatel">
+            <End Role="Polsovatel" EntitySet="Polsovatel" />
+            <End Role="Sotrudnik" EntitySet="Sotrudnik" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RemontKOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Klient">
+          <Key>
+            <PropertyRef Name="klient_id" />
+          </Key>
+          <Property Name="klient_id" Type="Int32" Nullable="false" />
+          <Property Name="familia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="imya" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="otchestvo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="polsovatel_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Polsovatel" Relationship="Self.FK_klient_polsovatel" FromRole="Klient" ToRole="Polsovatel" />
+          <NavigationProperty Name="Klient_Servic" Relationship="Self.FK_Klient_Servic_klient" FromRole="Klient" ToRole="Klient_Servic" />
+        </EntityType>
+        <EntityType Name="Klient_Servic">
+          <Key>
+            <PropertyRef Name="klient_servic_id" />
+          </Key>
+          <Property Name="klient_servic_id" Type="Int32" Nullable="false" />
+          <Property Name="klient_id" Type="Int32" Nullable="false" />
+          <Property Name="servic_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Klient" Relationship="Self.FK_Klient_Servic_klient" FromRole="Klient_Servic" ToRole="Klient" />
+          <NavigationProperty Name="Servic" Relationship="Self.FK_Klient_Servic_Servic" FromRole="Klient_Servic" ToRole="Servic" />
+        </EntityType>
+        <EntityType Name="Polsovatel">
+          <Key>
+            <PropertyRef Name="polsovatel_id" />
+          </Key>
+          <Property Name="polsovatel_id" Type="Int32" Nullable="false" />
+          <Property Name="familia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="imya" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="otcshestvo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="adres" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="rol_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Klient" Relationship="Self.FK_klient_polsovatel" FromRole="Polsovatel" ToRole="Klient" />
+          <NavigationProperty Name="Sotrudnik" Relationship="Self.FK_Sotrudnik_polsovatel" FromRole="Polsovatel" ToRole="Sotrudnik" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="rol_id" />
+          </Key>
+          <Property Name="rol_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imya" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Servic">
+          <Key>
+            <PropertyRef Name="servic_id" />
+          </Key>
+          <Property Name="servic_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imya" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="tcena" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Klient_Servic" Relationship="Self.FK_Klient_Servic_Servic" FromRole="Servic" ToRole="Klient_Servic" />
+        </EntityType>
+        <EntityType Name="Sotrudnik">
+          <Key>
+            <PropertyRef Name="sotrudnik_id" />
+          </Key>
+          <Property Name="sotrudnik_id" Type="Int32" Nullable="false" />
+          <Property Name="familia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="imya" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="otchestvo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="zarplata" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="polsovatel_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Polsovatel" Relationship="Self.FK_Sotrudnik_polsovatel" FromRole="Sotrudnik" ToRole="Polsovatel" />
+        </EntityType>
+        <Association Name="FK_klient_polsovatel">
+          <End Role="Polsovatel" Type="Self.Polsovatel" Multiplicity="1" />
+          <End Role="Klient" Type="Self.Klient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Polsovatel">
+              <PropertyRef Name="polsovatel_id" />
+            </Principal>
+            <Dependent Role="Klient">
+              <PropertyRef Name="polsovatel_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Klient_Servic_klient">
+          <End Role="Klient" Type="Self.Klient" Multiplicity="1" />
+          <End Role="Klient_Servic" Type="Self.Klient_Servic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klient">
+              <PropertyRef Name="klient_id" />
+            </Principal>
+            <Dependent Role="Klient_Servic">
+              <PropertyRef Name="klient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Klient_Servic_Servic">
+          <End Role="Servic" Type="Self.Servic" Multiplicity="1" />
+          <End Role="Klient_Servic" Type="Self.Klient_Servic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servic">
+              <PropertyRef Name="servic_id" />
+            </Principal>
+            <Dependent Role="Klient_Servic">
+              <PropertyRef Name="servic_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sotrudnik_polsovatel">
+          <End Role="Polsovatel" Type="Self.Polsovatel" Multiplicity="1" />
+          <End Role="Sotrudnik" Type="Self.Sotrudnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Polsovatel">
+              <PropertyRef Name="polsovatel_id" />
+            </Principal>
+            <Dependent Role="Sotrudnik">
+              <PropertyRef Name="polsovatel_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RemontKOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Klient" EntityType="Self.Klient" />
+          <EntitySet Name="Klient_Servic" EntityType="Self.Klient_Servic" />
+          <EntitySet Name="Polsovatel" EntityType="Self.Polsovatel" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" />
+          <EntitySet Name="Servic" EntityType="Self.Servic" />
+          <EntitySet Name="Sotrudnik" EntityType="Self.Sotrudnik" />
+          <AssociationSet Name="FK_klient_polsovatel" Association="Self.FK_klient_polsovatel">
+            <End Role="Polsovatel" EntitySet="Polsovatel" />
+            <End Role="Klient" EntitySet="Klient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Klient_Servic_klient" Association="Self.FK_Klient_Servic_klient">
+            <End Role="Klient" EntitySet="Klient" />
+            <End Role="Klient_Servic" EntitySet="Klient_Servic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Klient_Servic_Servic" Association="Self.FK_Klient_Servic_Servic">
+            <End Role="Servic" EntitySet="Servic" />
+            <End Role="Klient_Servic" EntitySet="Klient_Servic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sotrudnik_polsovatel" Association="Self.FK_Sotrudnik_polsovatel">
+            <End Role="Polsovatel" EntitySet="Polsovatel" />
+            <End Role="Sotrudnik" EntitySet="Sotrudnik" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище RemontKOModelContainer" CdmEntityContainer="RemontKOEntities">
+          <EntitySetMapping Name="Klient">
+            <EntityTypeMapping TypeName="RemontKOModel.Klient">
+              <MappingFragment StoreEntitySet="Klient">
+                <ScalarProperty Name="klient_id" ColumnName="klient_id" />
+                <ScalarProperty Name="familia" ColumnName="familia" />
+                <ScalarProperty Name="imya" ColumnName="imya" />
+                <ScalarProperty Name="otchestvo" ColumnName="otchestvo" />
+                <ScalarProperty Name="polsovatel_id" ColumnName="polsovatel_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Klient_Servic">
+            <EntityTypeMapping TypeName="RemontKOModel.Klient_Servic">
+              <MappingFragment StoreEntitySet="Klient_Servic">
+                <ScalarProperty Name="klient_servic_id" ColumnName="klient_servic_id" />
+                <ScalarProperty Name="klient_id" ColumnName="klient_id" />
+                <ScalarProperty Name="servic_id" ColumnName="servic_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Polsovatel">
+            <EntityTypeMapping TypeName="RemontKOModel.Polsovatel">
+              <MappingFragment StoreEntitySet="Polsovatel">
+                <ScalarProperty Name="polsovatel_id" ColumnName="polsovatel_id" />
+                <ScalarProperty Name="familia" ColumnName="familia" />
+                <ScalarProperty Name="imya" ColumnName="imya" />
+                <ScalarProperty Name="otcshestvo" ColumnName="otcshestvo" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="rol_id" ColumnName="rol_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="RemontKOModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="rol_id" ColumnName="rol_id" />
+                <ScalarProperty Name="imya" ColumnName="imya" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Servic">
+            <EntityTypeMapping TypeName="RemontKOModel.Servic">
+              <MappingFragment StoreEntitySet="Servic">
+                <ScalarProperty Name="servic_id" ColumnName="servic_id" />
+                <ScalarProperty Name="imya" ColumnName="imya" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="tcena" ColumnName="tcena" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sotrudnik">
+            <EntityTypeMapping TypeName="RemontKOModel.Sotrudnik">
+              <MappingFragment StoreEntitySet="Sotrudnik">
+                <ScalarProperty Name="sotrudnik_id" ColumnName="sotrudnik_id" />
+                <ScalarProperty Name="familia" ColumnName="familia" />
+                <ScalarProperty Name="imya" ColumnName="imya" />
+                <ScalarProperty Name="otchestvo" ColumnName="otchestvo" />
+                <ScalarProperty Name="zarplata" ColumnName="zarplata" />
+                <ScalarProperty Name="polsovatel_id" ColumnName="polsovatel_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
